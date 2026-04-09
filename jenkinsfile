@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Clone') {
       steps {
-        git 'https://github.com/your-username/maven-jenkins-demo.git'
+        git 'https://github.com/Virajsawant06/conquest_microservice.git'
       }
     }
     stage('Build') {
