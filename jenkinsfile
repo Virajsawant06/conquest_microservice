@@ -1,29 +1,45 @@
 pipeline {
-  agent any
-  tools {
-    maven 'maven'  // <-- Change to lowercase 'maven' to match your config
-  }
-  stages {
-    stage('Clone') {
-        steps {
-            git branch: 'main',
-                url: 'https://github.com/Virajsawant06/conquest_microservice.git'
+    agent any
+
+    tools {
+        // Must match the Maven tool name in "Manage Jenkins -> Tools"
+        maven 'maven'
+    }
+
+    stages {
+
+        // Optional: explicit clone. You can delete this stage if you want to rely
+        // on the default "Declarative: Checkout SCM".
+        stage('Clone') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/Virajsawant06/conquest_microservice.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // cd into folder that contains pom.xml: api_gateway/api_gateway/pom.xml
+                dir('api_gateway/api_gateway') {
+                    bat 'mvn clean compile'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('api_gateway/api_gateway') {
+                    bat 'mvn test'
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                dir('api_gateway/api_gateway') {
+                    bat 'mvn package'
+                }
+            }
         }
     }
-    stage('Build') {
-      steps {
-        bat 'mvn clean compile'
-      }
-    }
-    stage('Test') {
-      steps {
-        bat 'mvn test'
-      }
-    }
-    stage('Package') {
-      steps {
-        bat 'mvn package'
-      }
-    }
-  }
 }
