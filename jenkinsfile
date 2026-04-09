@@ -1,28 +1,28 @@
 pipeline {
- agent any
- tools {
- maven 'Maven'
- }
- stages {
- stage('Clone') {
- steps {
- git 'https://github.com/your-username/maven-jenkins-demo.git'
- }
- }
- stage('Build') {
- steps {
- bat 'mvn clean compile'
- }
- }
- stage('Test') {
- steps {
- bat 'mvn test'
- }
- }
- stage('Package') {
- steps {
- bat 'mvn package'
- }
- }
- }
+  agent any
+  tools {
+    maven 'maven'  // <-- Change to lowercase 'maven' to match your config
+  }
+  stages {
+    stage('Clone') {
+      steps {
+        git 'https://github.com/your-username/maven-jenkins-demo.git'
+      }
+    }
+    stage('Build') {
+      steps {
+        bat 'mvn clean compile'
+      }
+    }
+    stage('Test') {
+      steps {
+        bat 'mvn test'
+      }
+    }
+    stage('Package') {
+      steps {
+        bat 'mvn package'
+      }
+    }
+  }
 }
