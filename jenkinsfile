@@ -5,9 +5,10 @@ pipeline {
   }
   stages {
     stage('Clone') {
-      steps {
-        git 'https://github.com/Virajsawant06/conquest_microservice.git'
-      }
+        steps {
+            git branch: 'main',
+                url: 'https://github.com/Virajsawant06/conquest_microservice.git'
+        }
     }
     stage('Build') {
       steps {
